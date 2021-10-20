@@ -58,7 +58,7 @@ with open(file_out, 'w', encoding='UTF-8') as f1:
 
 #  2. Написать генератор, который принимает путь к файлу.
 print('Задание 2')
-print('Список хешированных строк из файла со странами\n')
+print('Список хешированных строк из файла со странами:\n')
 
 
 def generator_h(file):
@@ -71,7 +71,25 @@ def generator_h(file):
         line = (i.strip() for i in f2.readlines())
         for i in line:
             i_hash = hashlib.md5(i.encode())
-            print(i_hash.hexdigest())
+            yield i_hash.hexdigest()
+            # На каждом шаге итерации при вызове функции-генератора возвращает хеш сторки и ждет следующей итерации
 
 
-generator_h(file_out)
+g = generator_h(file_out)
+for i in g:
+    #  Пошагово получаем хеш сторк
+    print(i)
+
+
+
+# def generator_h(file):
+#     """
+#     Функция получает имя файла со списком, построчно хеширует и выадет
+#     :param file:
+#     :return:
+#     """
+#     with open(file, encoding='UTF-8') as f2:
+#         line = (i.strip() for i in f2.readlines())
+#         for i in line:
+#             i_hash = hashlib.md5(i.encode())
+#             print(i_hash.hexdigest())
